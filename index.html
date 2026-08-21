@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мы станем родителями! | Gender Party</title>
+    <title>Мы станем родителями! | Gender Party</title>[cite: 5]
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,14 +22,21 @@
             --font-main: 'Manrope', sans-serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: var(--font-main);
             background-color: var(--bg-page);
             color: var(--text-dark);
-            line-height: 1.65;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             padding: 0;
             background-image:
@@ -51,21 +58,28 @@
 
         .garland-divider {
             width: 100%;
-            max-width: 500px;
-            margin: 12px auto;
+            max-width: 480px;
+            margin: 10px auto;
             display: block;
             opacity: 0.85;
         }
-        .garland-divider img { width: 100%; height: auto; display: block; }
 
-        h1, h2, h3, h4 { color: var(--text-dark); }
+        .garland-divider img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--text-dark);
+        }
 
         .section-title {
             font-family: var(--font-accent);
-            font-size: 3rem;
+            font-size: 2.85rem;
             font-weight: 500;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: 0.5px;
             font-style: italic;
             position: relative;
@@ -74,17 +88,21 @@
 
         .section-subtitle {
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 35px;
+            margin-bottom: 28px; /* уменьшено на ~20% */
             font-weight: 400;
             letter-spacing: 0.3px;
             position: relative;
             z-index: 2;
         }
 
-        /* ===== HERO SPLIT ===== */
-        .hero-pin-wrapper { height: 230vh; position: relative; background: var(--bg-card); }
+        /* ===== HERO SPLIT C ФОНОМ 3815 ===== */
+        .hero-pin-wrapper {
+            height: 230vh;
+            position: relative;
+            background-color: var(--bg-page);
+        }
 
         .hero-sticky-container {
             position: sticky;
@@ -95,70 +113,130 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: var(--bg-page);
         }
 
         .hero-bg-photo {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            z-index: 1; opacity: 0; will-change: opacity, transform;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            will-change: opacity, transform;
             transform: scale(1.04);
             transition: opacity 0.2s linear, transform 0.2s linear;
         }
+
         .hero-bg-photo img {
-            width: 100%; height: 100%;
-            object-fit: cover; object-position: center; display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
         }
+
         .hero-bg-overlay {
-            position: absolute; inset: 0;
+            position: absolute;
+            inset: 0;
             background: linear-gradient(180deg, rgba(251, 249, 245, 0.78) 0%, rgba(244, 241, 236, 0.88) 100%);
             backdrop-filter: blur(2px);
         }
 
         .hero-hidden-content {
-            position: relative; z-index: 2;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center; padding: 40px 25px;
-            opacity: 0; transform: scale(0.96);
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 35px 22px; /* отступ внутри уменьшен на 5% */
+            opacity: 0;
+            transform: scale(0.96);
             transition: opacity 0.3s ease, transform 0.3s ease;
         }
+
         .hero-hidden-content .reveal-img {
-            max-width: 160px; width: 100%; margin-bottom: 24px;
+            max-width: 150px;
+            width: 100%;
+            margin-bottom: 20px;
             filter: drop-shadow(0 8px 20px rgba(0,0,0,0.06));
         }
+
         .hero-hidden-content h2 {
             font-family: var(--font-accent);
-            font-size: 3.4rem; font-weight: 500; font-style: italic;
-            line-height: 1.25; color: var(--text-dark);
-            margin-bottom: 20px; max-width: 700px;
+            font-size: 3.2rem;
+            font-weight: 500;
+            font-style: italic;
+            line-height: 1.25;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            max-width: 700px;
         }
+
         .hero-hidden-content p {
-            font-size: 1.15rem; line-height: 1.75;
-            color: var(--text-muted); max-width: 560px; font-weight: 400;
+            font-size: 1.1rem;
+            line-height: 1.65;
+            color: var(--text-muted);
+            max-width: 560px;
+            font-weight: 400;
         }
 
         .curtain-half {
-            position: absolute; top: 0; bottom: 0; left: 0; right: 0;
-            width: 100%; height: 100%;
-            z-index: 5; will-change: transform; overflow: hidden;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            will-change: transform;
+            overflow: hidden;
+            background-color: var(--bg-page);
         }
-        .curtain-left  { clip-path: inset(0 50% 0 0); }
-        .curtain-right { clip-path: inset(0 0 0 50%); }
+
+        .curtain-left {
+            clip-path: inset(0 50% 0 0);
+        }
+
+        .curtain-right {
+            clip-path: inset(0 0 0 50%);
+        }
+
         .curtain-half img {
-            width: 100%; height: 100%;
-            object-fit: cover; object-position: center; display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center bottom;
+            display: block;
         }
 
         .scroll-hint {
-            position: absolute; bottom: 28px; left: 50%;
-            transform: translateX(-50%); z-index: 6;
-            font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             color: rgba(255, 255, 255, 0.95);
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
             pointer-events: none;
             text-shadow: 0 2px 6px rgba(0,0,0,0.4);
             transition: opacity 0.3s ease;
         }
-        .scroll-hint svg { width: 18px; height: 18px; animation: bob 1.8s ease-in-out infinite; }
+
+        .scroll-hint svg {
+            width: 18px;
+            height: 18px;
+            animation: bob 1.8s ease-in-out infinite;
+        }
 
         @keyframes bob {
             0%, 100% { transform: translateY(0); }
@@ -168,332 +246,645 @@
         /* ===== CALENDAR С ГИРЛЯНДОЙ-ЗМЕЙКОЙ И ТАЙМЕРОМ ===== */
         .calendar-section {
             position: relative;
-            padding: 90px 25px 80px;
+            padding: 70px 22px 64px; /* секция уменьшена на ~20% */
             text-align: center;
             background-color: rgba(255, 255, 255, 0.3);
             overflow: hidden;
         }
 
         .calendar-card {
-            position: relative; z-index: 2;
-            max-width: 400px; margin: 0 auto;
-            background: #FFFFFF; border: 1px solid var(--border-color);
-            border-radius: 24px; padding: 32px 24px;
+            position: relative;
+            z-index: 2;
+            max-width: 390px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 28px 22px; /* отступ внутри уменьшен на 5% */
             box-shadow: 0 10px 35px rgba(74, 68, 63, 0.03);
         }
 
         .calendar-garland {
-            position: absolute; pointer-events: none; user-select: none;
+            position: absolute;
+            pointer-events: none;
+            user-select: none;
             filter: drop-shadow(0 4px 10px rgba(0,0,0,0.03));
         }
-        /* 1. Верхняя арка: ЗА текстом (z-index: 0) и полупрозрачная (25%) */
+
         .garland-top {
-            top: 25px; left: 50%;
+            top: 20px;
+            left: 50%;
             transform: translateX(-50%);
-            width: 520px; max-width: 95%;
-            z-index: 0; opacity: 0.25;
-        }
-        .garland-left {
-            left: -60px; top: 55%;
-            width: 320px; z-index: 1; opacity: 0.9;
-            transform: translateY(-50%) rotate(-35deg);
-        }
-        .garland-right {
-            right: -60px; top: 60%;
-            width: 320px; z-index: 1; opacity: 0.9;
-            transform: translateY(-50%) rotate(35deg) scaleX(-1);
-        }
-        .garland-bottom {
-            bottom: -15px; left: 50%;
-            transform: translateX(-50%);
-            width: 380px; max-width: 85%;
-            z-index: 1; opacity: 0.9;
+            width: 500px;
+            max-width: 95%;
+            z-index: 0;
+            opacity: 0.25;
         }
 
-        /* Таймер обратного отсчета */
-        .countdown-wrap {
-            position: relative; z-index: 2;
-            display: flex; justify-content: center; align-items: center;
-            gap: 14px; max-width: 440px;
-            margin: 0 auto 35px;
+        .garland-left {
+            left: -60px;
+            top: 55%;
+            width: 310px;
+            z-index: 1;
+            opacity: 0.9;
+            transform: translateY(-50%) rotate(-35deg);
         }
+
+        .garland-right {
+            right: -60px;
+            top: 60%;
+            width: 310px;
+            z-index: 1;
+            opacity: 0.9;
+            transform: translateY(-50%) rotate(35deg) scaleX(-1);
+        }
+
+        .garland-bottom {
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 360px;
+            max-width: 85%;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .countdown-wrap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            max-width: 420px;
+            margin: 0 auto 28px; /* отступ уменьшен на 20% */
+        }
+
         .countdown-item {
-            flex: 1; background: #FFFFFF;
+            flex: 1;
+            background: #FFFFFF;
             border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 12px 6px;
+            border-radius: 15px;
+            padding: 10px 5px;
             box-shadow: 0 4px 18px rgba(74, 68, 63, 0.03);
             text-align: center;
         }
+
         .countdown-num {
             font-family: var(--font-accent);
-            font-size: 2.2rem; font-style: italic;
-            line-height: 1; color: var(--accent-orange); font-weight: 500;
+            font-size: 2.1rem;
+            font-style: italic;
+            line-height: 1;
+            color: var(--accent-orange);
+            font-weight: 500;
         }
+
         .countdown-label {
-            font-size: 0.7rem; color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 1px;
-            margin-top: 4px; font-weight: 500;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 3px;
+            font-weight: 500;
         }
 
         .calendar-header {
             font-family: var(--font-accent);
-            font-size: 2.2rem; font-style: italic;
-            color: var(--text-dark); margin-bottom: 18px;
+            font-size: 2.1rem;
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 15px;
         }
 
         .calendar-grid {
-            display: grid; grid-template-columns: repeat(7, 1fr);
-            gap: 8px; text-align: center; align-items: center;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 7px;
+            text-align: center;
+            align-items: center;
         }
+
         .day-name {
-            font-size: 0.7rem; font-weight: 600;
-            color: var(--text-muted); text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 5px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
         }
+
         .day-num {
-            font-size: 0.95rem; font-weight: 400;
-            color: var(--text-dark); height: 38px;
-            display: flex; align-items: center; justify-content: center;
+            font-size: 0.92rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
+
         .day-num.empty { pointer-events: none; }
-        .day-num.highlight { font-weight: 600; color: var(--text-dark); }
+
+        .day-num.highlight {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
         .day-num.highlight::before {
-            content: ''; position: absolute;
-            width: 34px; height: 38px;
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 36px;
             border: 2px dashed var(--accent-orange);
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            top: -2px; left: 50%; transform: translateX(-50%);
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
             box-shadow: 0 0 0 2px rgba(200, 145, 99, 0.15);
         }
+
         .day-num.highlight::after {
-            content: ''; position: absolute;
-            bottom: -5px; left: 50%; transform: translateX(-50%);
-            width: 0; height: 0;
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
             border-left: 3px solid transparent;
             border-right: 3px solid transparent;
             border-top: 5px solid var(--accent-orange);
         }
 
         /* ===== TIMELINE ===== */
-        .program-section { padding: 70px 35px; background-color: var(--bg-card); }
-        .timeline-wrapper-desktop { position: relative; max-width: 920px; margin: 40px auto 10px; }
+        .program-section {
+            padding: 56px 28px; /* секция уменьшена на ~20% */
+            background-color: var(--bg-card);
+        }
+
+        .timeline-wrapper-desktop {
+            position: relative;
+            max-width: 920px;
+            margin: 30px auto 8px;
+        }
+
         .timeline-svg-horizontal {
-            position: absolute; top: 25px; left: 5%;
-            width: 90%; height: 80px;
-            pointer-events: none; z-index: 1;
+            position: absolute;
+            top: 25px;
+            left: 5%;
+            width: 90%;
+            height: 80px;
+            pointer-events: none;
+            z-index: 1;
         }
+
         .timeline-grid-desktop {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 16px; position: relative; z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            position: relative;
+            z-index: 2;
         }
+
         .timeline-card-desktop {
             background: #FFFFFF;
             border: 1px solid var(--border-color);
-            border-radius: 22px; padding: 28px 18px;
+            border-radius: 20px;
+            padding: 24px 16px; /* отступ внутри уменьшен на 5% */
             text-align: center;
             box-shadow: 0 8px 25px rgba(74, 68, 63, 0.03);
             transition: transform 0.3s ease;
         }
-        .timeline-card-desktop:hover { transform: translateY(-4px); }
+
+        .timeline-card-desktop:hover {
+            transform: translateY(-4px);
+        }
+
         .timeline-time-tag {
             font-family: var(--font-accent);
-            font-size: 2.5rem; font-style: italic;
-            color: var(--accent-orange); margin-bottom: 6px; line-height: 1;
+            font-size: 2.3rem;
+            font-style: italic;
+            color: var(--accent-orange);
+            margin-bottom: 5px;
+            line-height: 1;
         }
+
         .timeline-card-desktop h3 {
             font-family: var(--font-main);
-            font-size: 0.95rem; font-weight: 600;
-            margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase;
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
+
         .timeline-card-desktop p {
-            font-size: 0.88rem; color: var(--text-muted);
-            font-weight: 400; line-height: 1.55;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.5;
         }
+
         .timeline-wrapper-mobile {
-            display: none; position: relative;
-            max-width: 480px; margin: 30px auto 0; padding-left: 30px;
+            display: none;
+            position: relative;
+            max-width: 480px;
+            margin: 24px auto 0;
+            padding-left: 28px;
         }
+
         .timeline-svg-vertical {
-            position: absolute; left: 12px; top: 10px; bottom: 10px;
-            width: 30px; height: 100%; pointer-events: none;
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            bottom: 10px;
+            width: 30px;
+            height: 100%;
+            pointer-events: none;
         }
-        .timeline-list-mobile { display: flex; flex-direction: column; gap: 25px; }
+
+        .timeline-list-mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .timeline-card-mobile {
-            background: #FFFFFF; border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 24px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 22px;
             box-shadow: 0 4px 18px rgba(74, 68, 63, 0.02);
             text-align: left;
         }
-        .timeline-card-mobile .timeline-time-tag { text-align: left; font-size: 2.2rem; }
-        .timeline-card-mobile h3 { text-align: left; font-size: 1rem; font-weight: 600; }
+
+        .timeline-card-mobile .timeline-time-tag {
+            text-align: left;
+            font-size: 2.1rem;
+        }
+
+        .timeline-card-mobile h3 {
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
 
         /* ===== DETAILS ===== */
-        .details-section { padding: 70px 35px; background-color: rgba(255, 255, 255, 0.4); }
+        .details-section {
+            padding: 56px 28px; /* секция уменьшена на ~20% */
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
         .details-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 24px; max-width: 850px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 850px;
+            margin: 0 auto;
         }
+
         .details-card {
-            background: #FFFFFF; padding: 36px 28px;
-            border-radius: 22px; border: 1px solid var(--border-color);
-            text-align: center; box-shadow: 0 6px 25px rgba(74, 68, 63, 0.03);
+            background: #FFFFFF;
+            padding: 32px 25px; /* отступ внутри уменьшен на 5% */
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(74, 68, 63, 0.03);
         }
+
         .details-card h3 {
             font-family: var(--font-accent);
-            font-size: 2.2rem; font-style: italic; margin-bottom: 12px;
+            font-size: 2.1rem;
+            font-style: italic;
+            margin-bottom: 10px;
         }
+
         .details-card p {
-            font-size: 0.95rem; color: var(--text-muted);
-            font-weight: 400; line-height: 1.7;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.65;
         }
 
         /* ===== VOTING ===== */
-        .voting-section { padding: 70px 35px; text-align: center; }
-        .voting-container { max-width: 750px; margin: 0 auto; }
-        .photo-collage {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 20px; margin-bottom: 35px;
+        .voting-section {
+            padding: 56px 28px; /* секция уменьшена на ~20% */
+            text-align: center;
         }
+
+        .voting-container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .photo-collage {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
         .collage-img-wrapper {
-            border-radius: 22px; overflow: hidden; aspect-ratio: 2 / 3;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 2 / 3;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
-        .collage-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .vote-options {
-            display: flex; gap: 15px; justify-content: center;
-            max-width: 480px; margin: 25px auto 0;
+
+        .collage-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
+
+        .vote-options {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            max-width: 480px;
+            margin: 20px auto 0;
+        }
+
         .vote-btn {
-            flex: 1; padding: 16px 24px;
+            flex: 1;
+            padding: 14px 22px;
             border: 1px solid var(--border-color);
-            background: #FFFFFF; color: var(--text-dark);
-            border-radius: 30px; font-family: var(--font-main);
-            font-size: 0.95rem; font-weight: 500; cursor: pointer;
+            background: #FFFFFF;
+            color: var(--text-dark);
+            border-radius: 30px;
+            font-family: var(--font-main);
+            font-size: 0.92rem;
+            font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
-        .vote-btn:hover { border-color: var(--accent-peach); }
+
+        .vote-btn:hover {
+            border-color: var(--accent-peach);
+        }
+
         .vote-btn.selected {
-            background-color: var(--accent-peach); color: #FFFFFF;
+            background-color: var(--accent-peach);
+            color: #FFFFFF;
             border-color: var(--accent-peach);
             box-shadow: 0 6px 20px rgba(235, 176, 156, 0.45);
         }
+
         .vote-results {
-            max-width: 480px; margin: 30px auto 0;
-            background: #FFFFFF; border: 1px solid var(--border-color);
-            border-radius: 20px; padding: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); text-align: left;
+            max-width: 480px;
+            margin: 24px auto 0;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            text-align: left;
         }
+
         .result-header {
-            display: flex; justify-content: space-between;
-            font-size: 0.9rem; color: var(--text-dark);
-            margin-bottom: 6px; font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+            font-weight: 500;
         }
+
         .progress-bar-bg {
-            height: 12px; background: var(--bg-card);
-            border-radius: 6px; overflow: hidden;
-            margin-bottom: 16px; border: 1px solid var(--border-color);
+            height: 11px;
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 14px;
+            border: 1px solid var(--border-color);
         }
+
         .progress-fill {
-            height: 100%; background: var(--accent-peach);
-            width: 50%; transition: width 0.8s ease; border-radius: 6px;
+            height: 100%;
+            background: var(--accent-peach);
+            width: 50%;
+            transition: width 0.8s ease;
+            border-radius: 6px;
         }
-        .total-votes-count { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
-        .voted-notice { margin-top: 12px; font-size: 0.85rem; color: var(--accent-orange); font-style: italic; text-align: center; }
+
+        .total-votes-count {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .voted-notice {
+            margin-top: 10px;
+            font-size: 0.82rem;
+            color: var(--accent-orange);
+            font-style: italic;
+            text-align: center;
+        }
 
         /* ===== LOCATION ===== */
-        .location-section { padding: 70px 35px; text-align: center; background-color: rgba(255, 255, 255, 0.4); }
-        .location-address {
-            font-size: 1.05rem; color: var(--text-dark);
-            margin-bottom: 35px; font-weight: 400; line-height: 1.85;
+        .location-section {
+            padding: 56px 28px; /* секция уменьшена на ~20% */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.4);
         }
+
+        .location-address {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 28px;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
         .location-venue-name {
             font-family: var(--font-accent);
-            font-size: 2.6rem; font-style: italic;
-            color: var(--accent-orange); display: block; margin-top: 4px;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--accent-orange);
+            display: block;
+            margin-top: 3px;
         }
+
         .btn-map {
-            display: inline-block; padding: 16px 38px;
-            background-color: transparent; color: var(--text-dark);
-            text-decoration: none; font-family: var(--font-main);
-            font-weight: 500; font-size: 0.85rem;
-            letter-spacing: 1.5px; text-transform: uppercase;
-            border: 1px solid var(--text-dark); border-radius: 50px;
-            cursor: pointer; transition: all 0.3s ease;
+            display: inline-block;
+            padding: 14px 34px;
+            background-color: transparent;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: var(--font-main);
+            font-weight: 500;
+            font-size: 0.82rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border: 1px solid var(--text-dark);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .btn-map:hover { background-color: var(--text-dark); color: #FFFFFF; }
+
+        .btn-map:hover {
+            background-color: var(--text-dark);
+            color: #FFFFFF;
+        }
 
         /* ===== RSVP ===== */
-        .rsvp-section { padding: 70px 35px; }
+        .rsvp-section {
+            padding: 56px 28px; /* секция уменьшена на ~20% */
+        }
+
         .rsvp-form {
-            max-width: 650px; margin: 0 auto;
-            display: flex; flex-direction: column; gap: 26px;
-            text-align: left; background: #FFFFFF;
-            padding: 45px 40px; border-radius: 24px;
+            max-width: 650px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            text-align: left;
+            background: #FFFFFF;
+            padding: 40px 36px; /* отступ внутри уменьшен на 5% */
+            border-radius: 22px;
             border: 1px solid var(--border-color);
             box-shadow: 0 8px 35px rgba(74, 68, 63, 0.03);
         }
+
         .form-group label.field-label {
-            display: block; font-size: 0.75rem;
-            text-transform: uppercase; letter-spacing: 1.5px;
-            color: var(--text-muted); margin-bottom: 10px; font-weight: 500;
+            display: block;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
         }
+
         .form-control {
-            width: 100%; padding: 14px 18px;
+            width: 100%;
+            padding: 13px 16px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px; font-family: var(--font-main);
-            font-size: 0.95rem; color: var(--text-dark);
-            outline: none; transition: border-color 0.2s ease;
+            border-radius: 13px;
+            font-family: var(--font-main);
+            font-size: 0.92rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s ease;
         }
-        .form-control:focus { border-color: var(--accent-peach); background: #FFFFFF; }
-        .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+        .form-control:focus {
+            border-color: var(--accent-peach);
+            background: #FFFFFF;
+        }
+
+        .name-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 11px;
+        }
+
         .custom-option {
-            display: flex; align-items: center; justify-content: center;
-            background: var(--bg-card); padding: 14px 18px;
-            border: 1px solid var(--border-color); border-radius: 14px;
-            font-size: 0.95rem; cursor: pointer; color: var(--text-dark);
-            transition: all 0.25s ease; user-select: none; text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            padding: 13px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 13px;
+            font-size: 0.92rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: all 0.25s ease;
+            user-select: none;
+            text-align: center;
         }
-        .custom-option input[type="radio"] { display: none; }
-        .custom-option:hover { border-color: var(--accent-peach); background: #FAF6F2; }
+
+        .custom-option input[type="radio"] {
+            display: none;
+        }
+
+        .custom-option:hover {
+            border-color: var(--accent-peach);
+            background: #FAF6F2;
+        }
+
         .custom-option:has(input[type="radio"]:checked) {
-            background-color: var(--accent-peach); color: #FFFFFF;
-            border-color: var(--accent-peach); font-weight: 600;
+            background-color: var(--accent-peach);
+            color: #FFFFFF;
+            border-color: var(--accent-peach);
+            font-weight: 600;
             box-shadow: 0 4px 15px rgba(235, 176, 156, 0.4);
         }
-        #kidsGroup { display: none; }
-        .form-error {
-            color: #C0533B; font-size: 0.85rem; text-align: center;
-            padding: 12px; background: rgba(192, 83, 59, 0.08);
-            border-radius: 12px; display: none;
+
+        #kidsGroup {
+            display: none;
         }
-        .cloud-btn-submit { display: block; text-align: center; margin-top: 14px; }
+
+        .form-error {
+            color: #C0533B;
+            font-size: 0.82rem;
+            text-align: center;
+            padding: 10px;
+            background: rgba(192, 83, 59, 0.08);
+            border-radius: 10px;
+            display: none;
+        }
+
+        .cloud-btn-submit {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+
         .cloud-btn-submit img {
-            max-width: 240px; height: auto; cursor: pointer;
+            max-width: 230px;
+            height: auto;
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
-        .cloud-btn-submit img:hover { transform: scale(1.03); }
+
+        .cloud-btn-submit img:hover {
+            transform: scale(1.03);
+        }
+
         .submit-label {
             font-family: var(--font-accent);
-            font-size: 1.4rem; font-style: italic;
-            color: var(--accent-orange); margin-bottom: 6px; text-align: center;
+            font-size: 1.35rem;
+            font-style: italic;
+            color: var(--accent-orange);
+            margin-bottom: 5px;
+            text-align: center;
         }
+
         .form-success {
-            display: none; text-align: center; padding: 30px;
-            background: #FFFFFF; border: 1px solid var(--border-color);
-            border-radius: 18px; color: var(--text-dark);
-            font-size: 1.05rem; font-family: var(--font-accent); font-style: italic;
+            display: none;
+            text-align: center;
+            padding: 26px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-family: var(--font-accent);
+            font-style: italic;
         }
 
         .footer {
-            padding: 45px 25px; text-align: center;
+            padding: 38px 20px; /* секция уменьшена на ~20% */
+            text-align: center;
             font-family: var(--font-accent);
-            font-size: 2rem; font-style: italic;
-            color: var(--text-muted); border-top: 1px solid var(--border-color);
+            font-size: 1.9rem;
+            font-style: italic;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
             background: var(--bg-card);
         }
 
@@ -504,23 +895,47 @@
             .hero-hidden-content .reveal-img { max-width: 130px; }
             .section-title { font-size: 2.3rem; }
 
-            .calendar-section { padding: 70px 20px 60px; }
-            .garland-left, .garland-right { display: none; }
-            .garland-top { top: 15px; width: 360px; }
-            .garland-bottom { bottom: -10px; width: 280px; }
+            .calendar-section {
+                padding: 56px 18px 48px;
+            }
+            .garland-left,
+            .garland-right {
+                display: none;
+            }
+            .garland-top {
+                top: 12px;
+                width: 350px;
+            }
+            .garland-bottom {
+                bottom: -10px;
+                width: 270px;
+            }
 
-            .countdown-wrap { gap: 8px; }
-            .countdown-num { font-size: 1.7rem; }
-            .countdown-label { font-size: 0.62rem; }
+            .countdown-wrap {
+                gap: 8px;
+            }
+            .countdown-num {
+                font-size: 1.7rem;
+            }
+            .countdown-label {
+                font-size: 0.62rem;
+            }
 
             .timeline-wrapper-desktop { display: none; }
             .timeline-wrapper-mobile { display: block; }
+
             .details-grid { grid-template-columns: 1fr; }
             .name-row { grid-template-columns: 1fr; }
 
-            .program-section, .details-section, .voting-section,
-            .location-section, .rsvp-section { padding: 45px 20px; }
-            .rsvp-form { padding: 28px 22px; }
+            .program-section,
+            .details-section,
+            .voting-section,
+            .location-section,
+            .rsvp-section {
+                padding: 38px 16px;
+            }
+
+            .rsvp-form { padding: 24px 18px; }
         }
 
         @media (max-width: 480px) {
@@ -537,28 +952,29 @@
 <!-- ЕДИНЫЙ ПЕРВЫЙ БЛОК: Створки шатра + Фоновое фото 3815 + Текст и слоник -->
 <div class="hero-pin-wrapper" id="heroPin">
     <div class="hero-sticky-container">
+        
         <div class="hero-bg-photo">
-            <img src="IMG_3815.avif" alt="Фон">
+            <img src="IMG_3815.avif" alt="Фон">[cite: 5]
             <div class="hero-bg-overlay"></div>
         </div>
 
         <div class="hero-hidden-content">
-            <img src="elephant.png" alt="Слонёнок" class="reveal-img">
-            <h2>Мы скоро станем родителями во второй раз!</h2>
-            <p>И хотим пригласить вас разделить с нами трогательный момент — узнать пол нашего малыша.</p>
+            <img src="elephant.png" alt="Слонёнок" class="reveal-img">[cite: 5]
+            <h2>Мы скоро станем родителями во второй раз!</h2>[cite: 5]
+            <p>И хотим пригласить вас разделить с нами трогательный момент — узнать пол нашего малыша.</p>[cite: 5]
         </div>
 
         <div class="curtain-half curtain-left">
-            <img src="hero-couple.webp" alt="Шатер">
+            <img src="hero-couple.webp" alt="Шатер">[cite: 5]
         </div>
         <div class="curtain-half curtain-right">
-            <img src="hero-couple.webp" alt="Шатер">
+            <img src="hero-couple.webp" alt="Шатер">[cite: 5]
         </div>
 
         <div class="scroll-hint">
-            <span>Листайте вниз</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M6 9l6 6 6-6"/>
+            <span>Листайте вниз</span>[cite: 5]
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">[cite: 5]
+                <path d="M6 9l6 6 6-6"/>[cite: 5]
             </svg>
         </div>
     </div>
@@ -568,12 +984,12 @@
 
     <!-- CALENDAR WITH SNAKE GARLAND & COUNTDOWN -->
     <section class="calendar-section">
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-top">
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-left">
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-right">
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-top">[cite: 5]
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-left">[cite: 5]
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-right">[cite: 5]
 
-        <h2 class="section-title">Ждём вас</h2>
-        <p class="section-subtitle">20 сентября 2026 года</p>
+        <h2 class="section-title">Ждём вас</h2>[cite: 5]
+        <p class="section-subtitle">20 сентября 2026 года</p>[cite: 5]
 
         <!-- Таймер обратного отсчета -->
         <div class="countdown-wrap">
@@ -596,119 +1012,119 @@
         </div>
 
         <div class="calendar-card">
-            <div class="calendar-header">Сентябрь 2026</div>
+            <div class="calendar-header">Сентябрь 2026</div>[cite: 5]
             <div class="calendar-grid">
-                <div class="day-name">Пн</div>
-                <div class="day-name">Вт</div>
-                <div class="day-name">Ср</div>
-                <div class="day-name">Чт</div>
-                <div class="day-name">Пт</div>
-                <div class="day-name">Сб</div>
-                <div class="day-name">Вс</div>
+                <div class="day-name">Пн</div>[cite: 5]
+                <div class="day-name">Вт</div>[cite: 5]
+                <div class="day-name">Ср</div>[cite: 5]
+                <div class="day-name">Чт</div>[cite: 5]
+                <div class="day-name">Пт</div>[cite: 5]
+                <div class="day-name">Сб</div>[cite: 5]
+                <div class="day-name">Вс</div>[cite: 5]
 
-                <div class="day-num empty"></div>
-                <div class="day-num">1</div>
-                <div class="day-num">2</div>
-                <div class="day-num">3</div>
-                <div class="day-num">4</div>
-                <div class="day-num">5</div>
-                <div class="day-num">6</div>
+                <div class="day-num empty"></div>[cite: 5]
+                <div class="day-num">1</div>[cite: 5]
+                <div class="day-num">2</div>[cite: 5]
+                <div class="day-num">3</div>[cite: 5]
+                <div class="day-num">4</div>[cite: 5]
+                <div class="day-num">5</div>[cite: 5]
+                <div class="day-num">6</div>[cite: 5]
 
-                <div class="day-num">7</div>
-                <div class="day-num">8</div>
-                <div class="day-num">9</div>
-                <div class="day-num">10</div>
-                <div class="day-num">11</div>
-                <div class="day-num">12</div>
-                <div class="day-num">13</div>
+                <div class="day-num 7">7</div>[cite: 5]
+                <div class="day-num 8">8</div>[cite: 5]
+                <div class="day-num 9">9</div>[cite: 5]
+                <div class="day-num 10">10</div>[cite: 5]
+                <div class="day-num 11">11</div>[cite: 5]
+                <div class="day-num 12">12</div>[cite: 5]
+                <div class="day-num 13">13</div>[cite: 5]
 
-                <div class="day-num">14</div>
-                <div class="day-num">15</div>
-                <div class="day-num">16</div>
-                <div class="day-num">17</div>
-                <div class="day-num">18</div>
-                <div class="day-num">19</div>
+                <div class="day-num 14">14</div>[cite: 5]
+                <div class="day-num 15">15</div>[cite: 5]
+                <div class="day-num 16">16</div>[cite: 5]
+                <div class="day-num 17">17</div>[cite: 5]
+                <div class="day-num 18">18</div>[cite: 5]
+                <div class="day-num 19">19</div>[cite: 5]
 
-                <div class="day-num highlight">20</div>
+                <div class="day-num highlight">20</div>[cite: 5]
 
-                <div class="day-num">21</div>
-                <div class="day-num">22</div>
-                <div class="day-num">23</div>
-                <div class="day-num">24</div>
-                <div class="day-num">25</div>
-                <div class="day-num">26</div>
-                <div class="day-num">27</div>
+                <div class="day-num">21</div>[cite: 5]
+                <div class="day-num">22</div>[cite: 5]
+                <div class="day-num">23</div>[cite: 5]
+                <div class="day-num">24</div>[cite: 5]
+                <div class="day-num">25</div>[cite: 5]
+                <div class="day-num">26</div>[cite: 5]
+                <div class="day-num">27</div>[cite: 5]
 
-                <div class="day-num">28</div>
-                <div class="day-num">29</div>
-                <div class="day-num">30</div>
-                <div class="day-num empty"></div>
-                <div class="day-num empty"></div>
-                <div class="day-num empty"></div>
-                <div class="day-num empty"></div>
+                <div class="day-num">28</div>[cite: 5]
+                <div class="day-num">29</div>[cite: 5]
+                <div class="day-num">30</div>[cite: 5]
+                <div class="day-num empty"></div>[cite: 5]
+                <div class="day-num empty"></div>[cite: 5]
+                <div class="day-num empty"></div>[cite: 5]
+                <div class="day-num empty"></div>[cite: 5]
             </div>
         </div>
 
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-bottom">
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-bottom">[cite: 5]
     </section>
 
     <!-- TIMELINE -->
     <section class="program-section">
-        <h2 class="section-title">Что вас ждет на мероприятии</h2>
-        <p class="section-subtitle">Программа праздника</p>
+        <h2 class="section-title">Что вас ждет на мероприятии</h2>[cite: 5]
+        <p class="section-subtitle">Программа праздника</p>[cite: 5]
 
         <div class="timeline-wrapper-desktop">
-            <svg class="timeline-svg-horizontal" viewBox="0 0 800 60" preserveAspectRatio="none">
-                <path d="M0,30 Q200,5 400,30 T800,30" fill="none" stroke="#C89163" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <svg class="timeline-svg-horizontal" viewBox="0 0 800 60" preserveAspectRatio="none">[cite: 5]
+                <path d="M0,30 Q200,5 400,30 T800,30" fill="none" stroke="#C89163" stroke-width="2.5" stroke-dasharray="6 4"/>[cite: 5]
             </svg>
             <div class="timeline-grid-desktop">
                 <div class="timeline-card-desktop">
-                    <div class="timeline-time-tag">13:00</div>
-                    <h3>Сбор гостей и Фуршет</h3>
-                    <p>Просим взять с собой ваши прекрасные улыбки</p>
+                    <div class="timeline-time-tag">13:00</div>[cite: 5]
+                    <h3>Сбор гостей и Фуршет</h3>[cite: 5]
+                    <p>Просим взять с собой ваши прекрасные улыбки</p>[cite: 5]
                 </div>
                 <div class="timeline-card-desktop">
-                    <div class="timeline-time-tag">13:30</div>
-                    <h3>Главная тайна</h3>
-                    <p>Узнаем пол нашего малыша и принимаем поздравления</p>
+                    <div class="timeline-time-tag">13:30</div>[cite: 5]
+                    <h3>Главная тайна</h3>[cite: 5]
+                    <p>Узнаем пол нашего малыша и принимаем поздравления</p>[cite: 5]
                 </div>
                 <div class="timeline-card-desktop">
-                    <div class="timeline-time-tag">14:00</div>
-                    <h3>Банкет</h3>
-                    <p>Вкусное угощение и продолжение праздника</p>
+                    <div class="timeline-time-tag">14:00</div>[cite: 5]
+                    <h3>Банкет</h3>[cite: 5]
+                    <p>Вкусное угощение и продолжение праздника</p>[cite: 5]
                 </div>
                 <div class="timeline-card-desktop">
-                    <div class="timeline-time-tag">20:00</div>
-                    <h3>Завершение</h3>
-                    <p>Невероятный вечер подходит к концу</p>
+                    <div class="timeline-time-tag">20:00</div>[cite: 5]
+                    <h3>Завершение</h3>[cite: 5]
+                    <p>Невероятный вечер подходит к концу</p>[cite: 5]
                 </div>
             </div>
         </div>
 
         <div class="timeline-wrapper-mobile">
-            <svg class="timeline-svg-vertical" viewBox="0 0 30 400" preserveAspectRatio="none">
-                <path d="M15,0 Q0,100 15,200 T15,400" fill="none" stroke="#C89163" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <svg class="timeline-svg-vertical" viewBox="0 0 30 400" preserveAspectRatio="none">[cite: 5]
+                <path d="M15,0 Q0,100 15,200 T15,400" fill="none" stroke="#C89163" stroke-width="2.5" stroke-dasharray="6 4"/>[cite: 5]
             </svg>
             <div class="timeline-list-mobile">
                 <div class="timeline-card-mobile">
-                    <div class="timeline-time-tag">13:00</div>
-                    <h3>Сбор гостей | Фуршет</h3>
-                    <p>Просим взять с собой свои прекрасные улыбки</p>
+                    <div class="timeline-time-tag">13:00</div>[cite: 5]
+                    <h3>Сбор гостей | Фуршет</h3>[cite: 5]
+                    <p>Просим взять с собой свои прекрасные улыбки</p>[cite: 5]
                 </div>
                 <div class="timeline-card-mobile">
-                    <div class="timeline-time-tag">13:30</div>
-                    <h3>Главная тайна этого дня</h3>
-                    <p>Узнаем пол нашего малыша и принимаем поздравления</p>
+                    <div class="timeline-time-tag">13:30</div>[cite: 5]
+                    <h3>Главная тайна этого дня</h3>[cite: 5]
+                    <p>Узнаем пол нашего малыша и принимаем поздравления</p>[cite: 5]
                 </div>
                 <div class="timeline-card-mobile">
-                    <div class="timeline-time-tag">14:00</div>
-                    <h3>Банкет</h3>
-                    <p>Подкрепимся и продолжим веселье</p>
+                    <div class="timeline-time-tag">14:00</div>[cite: 5]
+                    <h3>Банкет</h3>[cite: 5]
+                    <p>Подкрепимся и продолжим веселье</p>[cite: 5]
                 </div>
                 <div class="timeline-card-mobile">
-                    <div class="timeline-time-tag">20:00</div>
-                    <h3>Завершение торжества</h3>
-                    <p>К сожалению, даже такой невероятный день может закончиться</p>
+                    <div class="timeline-time-tag">20:00</div>[cite: 5]
+                    <h3>Завершение торжества</h3>[cite: 5]
+                    <p>К сожалению, даже такой невероятный день может закончиться</p>[cite: 5]
                 </div>
             </div>
         </div>
@@ -716,18 +1132,18 @@
 
     <!-- DETAILS -->
     <section class="details-section">
-        <h2 class="section-title">Важные детали</h2>
-        <p class="section-subtitle">Мы позаботились о вашем комфорте</p>
+        <h2 class="section-title">Важные детали</h2>[cite: 5]
+        <p class="section-subtitle">Мы позаботились о вашем комфорте</p>[cite: 5]
 
         <div class="details-grid">
             <div class="details-card">
-                <h3>Для маленьких гостей</h3>
-                <p>Я предусмотрела отдельный зал и аниматоров, чтобы родители могли расслабиться и полностью насладиться праздником.</p>
+                <h3>Для маленьких гостей</h3>[cite: 5]
+                <p>Я предусмотрела отдельный зал и аниматоров, чтобы родители могли расслабиться и полностью насладиться праздником.</p>[cite: 5]
             </div>
 
             <div class="details-card">
-                <h3>Атмосфера и фото</h3>
-                <p>Просим вас в этот вечер забыть о мобильных телефонах и наслаждаться моментом. О стильных фотографиях позаботится наш фотограф.</p>
+                <h3>Атмосфера и фото</h3>[cite: 5]
+                <p>Просим вас в этот вечер забыть о мобильных телефонах и наслаждаться моментом. О стильных фотографиях позаботится наш фотограф.</p>[cite: 5]
             </div>
         </div>
     </section>
@@ -735,111 +1151,111 @@
     <!-- VOTING -->
     <section class="voting-section">
         <div class="voting-container">
-            <h2 class="section-title">Ваше предчувствие</h2>
-            <p class="section-subtitle">Кто у нас родится?</p>
+            <h2 class="section-title">Ваше предчувствие</h2>[cite: 5]
+            <p class="section-subtitle">Кто у нас родится?</p>[cite: 5]
 
             <div class="photo-collage">
                 <div class="collage-img-wrapper">
-                    <img src="IMG_3843.avif" alt="Семья">
+                    <img src="IMG_3843.avif" alt="Семья">[cite: 5]
                 </div>
                 <div class="collage-img-wrapper">
-                    <img src="IMG_3837.avif" alt="Ожидание малыша">
+                    <img src="IMG_3837.avif" alt="Ожидание малыша">[cite: 5]
                 </div>
             </div>
 
             <div class="vote-options">
-                <button type="button" class="vote-btn" id="btn-boy" onclick="castVote('boy')">Мальчик</button>
-                <button type="button" class="vote-btn" id="btn-girl" onclick="castVote('girl')">Девочка</button>
+                <button type="button" class="vote-btn" id="btn-boy" onclick="castVote('boy')">Мальчик</button>[cite: 5]
+                <button type="button" class="vote-btn" id="btn-girl" onclick="castVote('girl')">Девочка</button>[cite: 5]
             </div>
 
             <div class="vote-results">
                 <div class="result-header">
-                    <span>Мальчик <b id="boy-percent">50%</b></span>
-                    <span>Девочка <b id="girl-percent">50%</b></span>
+                    <span>Мальчик <b id="boy-percent">50%</b></span>[cite: 5]
+                    <span>Девочка <b id="girl-percent">50%</b></span>[cite: 5]
                 </div>
                 <div class="progress-bar-bg">
-                    <div class="progress-fill" id="boy-bar" style="width: 50%;"></div>
+                    <div class="progress-fill" id="boy-bar" style="width: 50%;"></div>[cite: 5]
                 </div>
-                <div class="total-votes-count" id="totalVotesText">Всего проголосовало гостей: 0</div>
-                <div class="voted-notice" id="votedNotice" style="display: none;">Ваш выбор учтен!</div>
+                <div class="total-votes-count" id="totalVotesText">Всего проголосовало гостей: 0</div>[cite: 5]
+                <div class="voted-notice" id="votedNotice" style="display: none;">Ваш выбор учтен!</div>[cite: 5]
             </div>
         </div>
     </section>
 
     <!-- LOCATION -->
     <section class="location-section">
-        <h2 class="section-title">Место встречи</h2>
+        <h2 class="section-title">Место встречи</h2>[cite: 5]
         <p class="location-address">
-            Торжество пройдет по адресу:<br>
-            ТЦ «Сибирские Огни», ул. Красный Путь, 63, 3 этаж,<br>
-            <span class="location-venue-name">Белый Кролик</span>
+            Торжество пройдет по адресу:<br>[cite: 5]
+            ТЦ «Сибирские Огни», ул. Красный Путь, 63, 3 этаж,<br>[cite: 5]
+            <span class="location-venue-name">Белый Кролик</span>[cite: 5]
         </p>
-        <a href="https://go.2gis.com/zRaBh" target="_blank" rel="noopener" class="btn-map">Открыть в 2ГИС</a>
+        <a href="https://go.2gis.com/zRaBh" target="_blank" rel="noopener" class="btn-map">Открыть в 2ГИС</a>[cite: 5]
     </section>
 
     <!-- RSVP -->
     <section class="rsvp-section" id="rsvp">
-        <h2 class="section-title">Пожалуйста, подтвердите присутствие до 05.09.2026</h2>
-        <p class="section-subtitle">это поможет нам подготовиться</p>
+        <h2 class="section-title">Пожалуйста, подтвердите присутствие до 05.09.2026</h2>[cite: 5]
+        <p class="section-subtitle">это поможет нам подготовиться</p>[cite: 5]
 
-        <form class="rsvp-form" id="genderPartyForm" onsubmit="handleFormSubmit(event)" novalidate>
+        <form class="rsvp-form" id="genderPartyForm" onsubmit="handleFormSubmit(event)" novalidate>[cite: 5]
             <div class="form-group">
                 <div class="name-row">
                     <div>
-                        <label class="field-label" for="firstName">Имя</label>
-                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="" required>
+                        <label class="field-label" for="firstName">Имя</label>[cite: 5]
+                        <input type="text" id="firstName" name="firstName" class="form-control" placeholder="" required>[cite: 5]
                     </div>
                     <div>
-                        <label class="field-label" for="lastName">Фамилия</label>
-                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="" required>
+                        <label class="field-label" for="lastName">Фамилия</label>[cite: 5]
+                        <input type="text" id="lastName" name="lastName" class="form-control" placeholder="" required>[cite: 5]
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="field-label">Я приду:</label>
+                <label class="field-label">Я приду:</label>[cite: 5]
                 <div class="options-grid">
                     <label class="custom-option">
-                        <input type="radio" name="attendance" value="single" required>
-                        <span>Один</span>
+                        <input type="radio" name="attendance" value="single" required>[cite: 5]
+                        <span>Один</span>[cite: 5]
                     </label>
                     <label class="custom-option">
-                        <input type="radio" name="attendance" value="pair" required>
-                        <span>С парой</span>
+                        <input type="radio" name="attendance" value="pair" required>[cite: 5]
+                        <span>С парой</span>[cite: 5]
                     </label>
                 </div>
             </div>
 
             <div class="form-group" id="kidsGroup">
-                <label class="field-label">Вы будете с ребенком?</label>
+                <label class="field-label">Вы будете с ребенком?</label>[cite: 5]
                 <div class="options-grid">
                     <label class="custom-option">
-                        <input type="radio" name="kids" value="yes">
-                        <span>Да</span>
+                        <input type="radio" name="kids" value="yes">[cite: 5]
+                        <span>Да</span>[cite: 5]
                     </label>
                     <label class="custom-option">
-                        <input type="radio" name="kids" value="no">
-                        <span>Нет</span>
+                        <input type="radio" name="kids" value="no">[cite: 5]
+                        <span>Нет</span>[cite: 5]
                     </label>
                 </div>
             </div>
 
-            <div class="form-error" id="formError">Пожалуйста, заполните все поля</div>
+            <div class="form-error" id="formError">Пожалуйста, заполните все поля</div>[cite: 5]
 
             <div class="cloud-btn-submit">
-                <div class="submit-label">Отправить</div>
-                <img src="cloud-btn.png" alt="Отправить" onclick="document.getElementById('genderPartyForm').requestSubmit()">
+                <div class="submit-label">Отправить</div>[cite: 5]
+                <img src="cloud-btn.png" alt="Отправить" onclick="document.getElementById('genderPartyForm').requestSubmit()">[cite: 5]
             </div>
         </form>
 
         <div class="form-success" id="formSuccess">
-            Спасибо за ваш ответ! Мы с нетерпением ждем встречи!
+            Спасибо за ваш ответ! Мы с нетерпением ждем встречи![cite: 5]
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
-        Ждем вас с нетерпением!
+        Ждем вас с нетерпением![cite: 5]
     </footer>
 
 </div>
@@ -858,11 +1274,13 @@
 
         const rect = heroPin.getBoundingClientRect();
         const totalScroll = heroPin.offsetHeight - window.innerHeight;
+        
         const scrollOffset = -rect.top;
         const progress = Math.max(0, Math.min(1, scrollOffset / totalScroll));
 
         const splitStart = 0.04;
         const splitEnd = 0.75;
+        
         let curtainT = 0;
         if (progress >= splitEnd) curtainT = 1;
         else if (progress > splitStart) curtainT = (progress - splitStart) / (splitEnd - splitStart);
@@ -935,40 +1353,40 @@
     updateCountdown();
 
     // === LIVE VOTE STATS via n8n ===
-    const WEBHOOK_VOTE_URL = 'https://n8n.2gis.io/webhook/gender-party-vote';
+    const WEBHOOK_VOTE_URL = 'https://n8n.2gis.io/webhook/gender-party-vote';[cite: 5]
 
     async function fetchStats() {
         try {
-            const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats`);
-            const data = await res.json();
-            updateStatsUI(data.boy || 0, data.girl || 0);
+            const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats`);[cite: 5]
+            const data = await res.json();[cite: 5]
+            updateStatsUI(data.boy || 0, data.girl || 0);[cite: 5]
         } catch (e) {
-            updateStatsUI(0, 0);
+            updateStatsUI(0, 0);[cite: 5]
         }
     }
 
     function updateStatsUI(bVotes, gVotes) {
-        const total = bVotes + gVotes;
-        let bPercent = 50;
-        let gPercent = 50;
+        const total = bVotes + gVotes;[cite: 5]
+        let bPercent = 50;[cite: 5]
+        let gPercent = 50;[cite: 5]
 
         if (total > 0) {
-            bPercent = Math.round((bVotes / total) * 100);
-            gPercent = 100 - bPercent;
+            bPercent = Math.round((bVotes / total) * 100);[cite: 5]
+            gPercent = 100 - bPercent;[cite: 5]
         }
 
-        document.getElementById('boy-percent').innerText = bPercent + '%';
-        document.getElementById('girl-percent').innerText = gPercent + '%';
-        document.getElementById('boy-bar').style.width = bPercent + '%';
-        document.getElementById('totalVotesText').innerText = `Всего проголосовало гостей: ${total}`;
+        document.getElementById('boy-percent').innerText = bPercent + '%';[cite: 5]
+        document.getElementById('girl-percent').innerText = gPercent + '%';[cite: 5]
+        document.getElementById('boy-bar').style.width = bPercent + '%';[cite: 5]
+        document.getElementById('totalVotesText').innerText = `Всего проголосовало гостей: ${total}`;[cite: 5]
     }
 
     async function castVote(gender) {
-        const savedVote = localStorage.getItem('gender_party_user_vote');
+        const savedVote = localStorage.getItem('gender_party_user_vote');[cite: 5]
 
         if (savedVote) {
-            document.getElementById('votedNotice').innerText = `Вы уже проголосовали! Ваш выбор: ${savedVote === 'boy' ? 'Мальчик' : 'Девочка'}`;
-            document.getElementById('votedNotice').style.display = 'block';
+            document.getElementById('votedNotice').innerText = `Вы уже проголосовали! Ваш выбор: ${savedVote === 'boy' ? 'Мальчик' : 'Девочка'}`;[cite: 5]
+            document.getElementById('votedNotice').style.display = 'block';[cite: 5]
             return;
         }
 
@@ -977,95 +1395,95 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ gender })
-            });
+            });[cite: 5]
         } catch (e) {
-            console.log('Vote registered locally');
+            console.log('Vote registered locally');[cite: 5]
         }
 
-        localStorage.setItem('gender_party_user_vote', gender);
-        highlightButton(gender);
-        fetchStats();
+        localStorage.setItem('gender_party_user_vote', gender);[cite: 5]
+        highlightButton(gender);[cite: 5]
+        fetchStats();[cite: 5]
     }
 
     function highlightButton(gender) {
-        document.getElementById('btn-boy').classList.remove('selected');
-        document.getElementById('btn-girl').classList.remove('selected');
+        document.getElementById('btn-boy').classList.remove('selected');[cite: 5]
+        document.getElementById('btn-girl').classList.remove('selected');[cite: 5]
 
-        if (gender === 'boy') document.getElementById('btn-boy').classList.add('selected');
-        if (gender === 'girl') document.getElementById('btn-girl').classList.add('selected');
+        if (gender === 'boy') document.getElementById('btn-boy').classList.add('selected');[cite: 5]
+        if (gender === 'girl') document.getElementById('btn-girl').classList.add('selected');[cite: 5]
 
-        document.getElementById('votedNotice').innerText = `Ваш голос за ${gender === 'boy' ? 'Мальчика' : 'Девочку'} учтен!`;
-        document.getElementById('votedNotice').style.display = 'block';
+        document.getElementById('votedNotice').innerText = `Ваш голос за ${gender === 'boy' ? 'Мальчика' : 'Девочку'} учтен!`;[cite: 5]
+        document.getElementById('votedNotice').style.display = 'block';[cite: 5]
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        fetchStats();
+        fetchStats();[cite: 5]
 
-        const savedVote = localStorage.getItem('gender_party_user_vote');
+        const savedVote = localStorage.getItem('gender_party_user_vote');[cite: 5]
         if (savedVote) {
-            highlightButton(savedVote);
+            highlightButton(savedVote);[cite: 5]
         }
 
-        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');[cite: 5]
         attendanceRadios.forEach(radio => {
             radio.addEventListener('change', () => {
-                const kidsGroup = document.getElementById('kidsGroup');
-                if (radio.value === 'pair' && radio.checked) {
-                    kidsGroup.style.display = 'block';
-                } else if (radio.value === 'single') {
-                    kidsGroup.style.display = 'none';
-                    document.querySelectorAll('input[name="kids"]').forEach(k => k.checked = false);
+                const kidsGroup = document.getElementById('kidsGroup');[cite: 5]
+                if (radio.value === 'pair' && radio.checked) {[cite: 5]
+                    kidsGroup.style.display = 'block';[cite: 5]
+                } else if (radio.value === 'single') {[cite: 5]
+                    kidsGroup.style.display = 'none';[cite: 5]
+                    document.querySelectorAll('input[name="kids"]').forEach(k => k.checked = false);[cite: 5]
                 }
             });
         });
     });
 
     // === FORM SUBMIT via n8n ===
-    const WEBHOOK_URL = 'https://n8n.2gis.io/webhook/gender-party-rsvp';
+    const WEBHOOK_URL = 'https://n8n.2gis.io/webhook/gender-party-rsvp';[cite: 5]
 
     function handleFormSubmit(e) {
-        e.preventDefault();
-        const form = document.getElementById('genderPartyForm');
-        const errorEl = document.getElementById('formError');
+        e.preventDefault();[cite: 5]
+        const form = document.getElementById('genderPartyForm');[cite: 5]
+        const errorEl = document.getElementById('formError');[cite: 5]
 
-        const firstName = document.getElementById('firstName').value.trim();
-        const lastName = document.getElementById('lastName').value.trim();
-        const attendanceEl = form.querySelector('input[name="attendance"]:checked');
-        const kidsGroupVisible = document.getElementById('kidsGroup').style.display !== 'none';
-        const kidsEl = form.querySelector('input[name="kids"]:checked');
+        const firstName = document.getElementById('firstName').value.trim();[cite: 5]
+        const lastName = document.getElementById('lastName').value.trim();[cite: 5]
+        const attendanceEl = form.querySelector('input[name="attendance"]:checked');[cite: 5]
+        const kidsGroupVisible = document.getElementById('kidsGroup').style.display !== 'none';[cite: 5]
+        const kidsEl = form.querySelector('input[name="kids"]:checked');[cite: 5]
 
-        if (!firstName || !lastName || !attendanceEl) {
-            errorEl.style.display = 'block';
+        if (!firstName || !lastName || !attendanceEl) {[cite: 5]
+            errorEl.style.display = 'block';[cite: 5]
             return;
         }
 
-        if (kidsGroupVisible && !kidsEl) {
-            errorEl.style.display = 'block';
+        if (kidsGroupVisible && !kidsEl) {[cite: 5]
+            errorEl.style.display = 'block';[cite: 5]
             return;
         }
 
-        errorEl.style.display = 'none';
+        errorEl.style.display = 'none';[cite: 5]
 
         const data = {
             firstName: firstName,
             lastName: lastName,
             attendance: attendanceEl.value,
             kids: kidsGroupVisible ? kidsEl.value : null
-        };
+        };[cite: 5]
 
         fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
-        })
-        .then(r => r.json())
+        })[cite: 5]
+        .then(r => r.json())[cite: 5]
         .then(() => {
-            form.style.display = 'none';
-            document.getElementById('formSuccess').style.display = 'block';
+            form.style.display = 'none';[cite: 5]
+            document.getElementById('formSuccess').style.display = 'block';[cite: 5]
         })
         .catch(() => {
-            form.style.display = 'none';
-            document.getElementById('formSuccess').style.display = 'block';
+            form.style.display = 'none';[cite: 5]
+            document.getElementById('formSuccess').style.display = 'block';[cite: 5]
         });
     }
 </script>
