@@ -1,0 +1,171 @@
+{
+  "name": "Gender Party - RSVP (Google Sheets + Email)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gender-party-rsvp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh-rsvp-8927cb85",
+      "name": "Webhook POST /rsvp",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        0
+      ],
+      "webhookId": "rsvp-gp-webhook-2gis"
+    },
+    {
+      "parameters": {
+        "jsCode": "const src = $input.first().json;\nconst b = src.body || src;\nconst attendance = b.attendance === 'pair' ? 'С парой' : (b.attendance === 'single' ? 'Один' : '—');\nconst kids = b.kids === 'yes' ? 'Да' : (b.kids === 'no' ? 'Нет' : '—');\nreturn [{ json: {\n  ts: new Date().toISOString(),\n  firstName: b.firstName || '',\n  lastName: b.lastName || '',\n  attendance: attendance,\n  kids: kids,\n  kids_raw: b.kids || null,\n} }];\n"
+      },
+      "id": "norm-650d46be",
+      "name": "Normalise input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1rZeYuNxLnNexFQ-foL-WLU89Enjg-hRZZbwc6JcGlec"
+        },
+        "sheetName": "RSVP",
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "timestamp": "={{ $json.ts }}",
+            "firstName": "={{ $json.firstName }}",
+            "lastName": "={{ $json.lastName }}",
+            "attendance": "={{ $json.attendance }}",
+            "kids": "={{ $json.kids }}"
+          }
+        }
+      },
+      "id": "append-rsvp-4f225197",
+      "name": "Append RSVP",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -20,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "notifications@2gis.ru",
+        "toEmail": "p.vodyankina@2gis.ru",
+        "subject": "={{ 'Новый ответ на приглашение: ' + $json.firstName + ' ' + $json.lastName }}",
+        "emailType": "html",
+        "html": "<div style=\"font-family: Arial, sans-serif; background-color: #FDFBF8; padding: 24px; border-radius: 16px; border: 1px solid #E8DFD8; max-width: 500px; color: #3A3530;\">\n  <h2 style=\"color: #C89163; font-style: italic; margin-top: 0;\">Новая анкета на Gender Party!</h2>\n  <p style=\"font-size: 16px; margin-bottom: 8px;\"><strong>Гость:</strong> {{ $json.firstName }} {{ $json.lastName }}</p>\n  <p style=\"font-size: 16px; margin-bottom: 8px;\"><strong>Формат:</strong> {{ $json.attendance }}</p>\n  <p style=\"font-size: 16px; margin-bottom: 8px;\"><strong>Дети:</strong> {{ $json.kids === 'Да' ? 'Будет с ребенком' : ($json.kids === 'Нет' ? 'Без детей' : '—') }}</p>\n  <p style=\"font-size: 12px; color: #8C827A; margin-top: 16px;\">Опубликовано: {{ $json.ts }}</p>\n</div>"
+      },
+      "id": "email-2f52257c",
+      "name": "Notify by Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'success', message: 'Спасибо за ваш ответ!' }) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "GET, POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "resp-rsvp-7171fe0e",
+      "name": "Respond (success)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        420,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook POST /rsvp": {
+      "main": [
+        [
+          {
+            "node": "Normalise input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalise input": {
+      "main": [
+        [
+          {
+            "node": "Append RSVP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append RSVP": {
+      "main": [
+        [
+          {
+            "node": "Notify by Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify by Email": {
+      "main": [
+        [
+          {
+            "node": "Respond (success)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [
+    "gender-party",
+    "n8n"
+  ]
+}
