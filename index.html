@@ -985,6 +985,8 @@
     // === LIVE VOTE STATS via n8n ===
     const WEBHOOK_VOTE_URL = 'https://n8n.2gis.io/webhook/gender-party-vote';
 
+    let isVoting = false;
+
     async function fetchStats() {
         try {
             const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats`);
@@ -1014,11 +1016,19 @@
     async function castVote(gender) {
         const savedVote = localStorage.getItem('gender_party_user_vote');
 
-        if (savedVote) {
-            document.getElementById('votedNotice').innerText = `Вы уже проголосовали! Ваш выбор: ${savedVote === 'boy' ? 'Мальчик' : 'Девочка'}`;
-            document.getElementById('votedNotice').style.display = 'block';
+        if (savedVote || isVoting) {
             return;
         }
+
+        isVoting = true;
+
+        const btnBoy = document.getElementById('btn-boy');
+        const btnGirl = document.getElementById('btn-girl');
+        if (btnBoy) btnBoy.style.pointerEvents = 'none';
+        if (btnGirl) btnGirl.style.pointerEvents = 'none';
+
+        localStorage.setItem('gender_party_user_vote', gender);
+        highlightButton(gender);
 
         try {
             await fetch(WEBHOOK_VOTE_URL, {
@@ -1028,22 +1038,32 @@
             });
         } catch (e) {
             console.log('Vote registered locally');
+        } finally {
+            fetchStats();
         }
-
-        localStorage.setItem('gender_party_user_vote', gender);
-        highlightButton(gender);
-        fetchStats();
     }
 
     function highlightButton(gender) {
-        document.getElementById('btn-boy').classList.remove('selected');
-        document.getElementById('btn-girl').classList.remove('selected');
+        const btnBoy = document.getElementById('btn-boy');
+        const btnGirl = document.getElementById('btn-girl');
 
-        if (gender === 'boy') document.getElementById('btn-boy').classList.add('selected');
-        if (gender === 'girl') document.getElementById('btn-girl').classList.add('selected');
+        if (btnBoy) {
+            btnBoy.classList.remove('selected');
+            btnBoy.style.pointerEvents = 'none';
+        }
+        if (btnGirl) {
+            btnGirl.classList.remove('selected');
+            btnGirl.style.pointerEvents = 'none';
+        }
 
-        document.getElementById('votedNotice').innerText = `Ваш голос за ${gender === 'boy' ? 'Мальчика' : 'Девочку'} учтен!`;
-        document.getElementById('votedNotice').style.display = 'block';
+        if (gender === 'boy' && btnBoy) btnBoy.classList.add('selected');
+        if (gender === 'girl' && btnGirl) btnGirl.classList.add('selected');
+
+        const notice = document.getElementById('votedNotice');
+        if (notice) {
+            notice.innerText = `Ваш голос за ${gender === 'boy' ? 'Мальчика' : 'Девочку'} учтен!`;
+            notice.style.display = 'block';
+        }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -1067,7 +1087,6 @@
             });
         });
     });
-
     // === FORM SUBMIT via n8n C БЛОКИРОВКОЙ ПОВТОРНЫХ КЛИКОВ ===
     const WEBHOOK_URL = 'https://n8n.2gis.io/webhook/gender-party-rsvp';
 
