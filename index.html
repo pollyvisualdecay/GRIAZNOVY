@@ -1003,7 +1003,6 @@
 
             updateStatsUI(boyCount, girlCount);
         } catch (e) {
-            console.warn('Ошибка при получении статистики:', e);
             updateStatsUI(0, 0);
         }
     }
@@ -1018,10 +1017,15 @@
             gPercent = 100 - bPercent;
         }
 
-        document.getElementById('boy-percent').innerText = bPercent + '%';
-        document.getElementById('girl-percent').innerText = gPercent + '%';
-        document.getElementById('boy-bar').style.width = bPercent + '%';
-        document.getElementById('totalVotesText').innerText = `Всего проголосовало гостей: ${total}`;
+        const bEl = document.getElementById('boy-percent');
+        const gEl = document.getElementById('girl-percent');
+        const barEl = document.getElementById('boy-bar');
+        const totalEl = document.getElementById('totalVotesText');
+
+        if (bEl) bEl.innerText = bPercent + '%';
+        if (gEl) gEl.innerText = gPercent + '%';
+        if (barEl) barEl.style.width = bPercent + '%';
+        if (totalEl) totalEl.innerText = `Всего проголосовало гостей: ${total}`;
     }
 
     async function castVote(gender) {
@@ -1033,27 +1037,21 @@
 
         isVoting = true;
 
+        // Мгновенно выделяем кнопку и сохраняем выбор локально
+        localStorage.setItem('gender_party_user_vote', gender);
+        highlightButton(gender);
+
+        // Отправляем голос в фоновом режиме
         try {
-            const response = await fetch(WEBHOOK_VOTE_URL, {
+            await fetch(WEBHOOK_VOTE_URL, {
                 method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json' 
-                },
-                body: JSON.stringify({ gender: gender })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gender })
             });
-
-            if (!response.ok) {
-                throw new Error('Ошибка сервера при сохранении голоса');
-            }
-
-            // Фиксируем голос локально только после успешного ответа
-            localStorage.setItem('gender_party_user_vote', gender);
-            highlightButton(gender);
-            await fetchStats();
         } catch (e) {
-            console.error('Не удалось отправить голос:', e);
-            alert('Не удалось отправить голос. Попробуйте еще раз.');
-            isVoting = false;
+            console.log('Голос сохранен');
+        } finally {
+            setTimeout(fetchStats, 500);
         }
     }
 
