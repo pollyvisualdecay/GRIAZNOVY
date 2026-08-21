@@ -989,13 +989,11 @@
 
     async function fetchStats() {
         try {
-            // Добавлен _t=${Date.now()} и cache: 'no-store', чтобы браузер не кэшировал данные
             const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats&_t=${Date.now()}`, {
                 cache: 'no-store'
             });
             let data = await res.json();
 
-            // Обработка случая, если n8n вернул массив [{ boy, girl }]
             if (Array.isArray(data)) {
                 data = data[0] || {};
             }
@@ -1005,6 +1003,7 @@
 
             updateStatsUI(boyCount, girlCount);
         } catch (e) {
+            console.warn('Ошибка при получении статистики:', e);
             updateStatsUI(0, 0);
         }
     }
@@ -1034,24 +1033,27 @@
 
         isVoting = true;
 
-        const btnBoy = document.getElementById('btn-boy');
-        const btnGirl = document.getElementById('btn-girl');
-        if (btnBoy) btnBoy.style.pointerEvents = 'none';
-        if (btnGirl) btnGirl.style.pointerEvents = 'none';
-
-        localStorage.setItem('gender_party_user_vote', gender);
-        highlightButton(gender);
-
         try {
-            await fetch(WEBHOOK_VOTE_URL, {
+            const response = await fetch(WEBHOOK_VOTE_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ gender })
+                headers: { 
+                    'Content-Type': 'application/json' 
+                },
+                body: JSON.stringify({ gender: gender })
             });
+
+            if (!response.ok) {
+                throw new Error('Ошибка сервера при сохранении голоса');
+            }
+
+            // Фиксируем голос локально только после успешного ответа
+            localStorage.setItem('gender_party_user_vote', gender);
+            highlightButton(gender);
+            await fetchStats();
         } catch (e) {
-            console.log('Vote registered locally');
-        } finally {
-            fetchStats();
+            console.error('Не удалось отправить голос:', e);
+            alert('Не удалось отправить голос. Попробуйте еще раз.');
+            isVoting = false;
         }
     }
 
@@ -1080,6 +1082,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         fetchStats();
+        setTimeout(fetchStats, 1000);
 
         const savedVote = localStorage.getItem('gender_party_user_vote');
         if (savedVote) {
