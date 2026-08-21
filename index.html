@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мы станем родителями во второй раз! | Gender Party</title>
+    
+    <!-- Быстрое подключение шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Предзагрузка ключевых фото первого экрана -->
+    <link rel="preload" as="image" href="IMG_3815.avif">
+    <link rel="preload" as="image" href="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.png">
+
     <style>
         :root {
             --bg-page: #F4F1EC;
@@ -153,7 +160,7 @@
         .curtain-half img {
             width: 100%; 
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; 
             object-position: center; 
             display: block;
         }
@@ -606,21 +613,21 @@
 <div class="hero-pin-wrapper" id="heroPin">
     <div class="hero-sticky-container">
         <div class="hero-bg-photo">
-            <img src="IMG_3815.avif" alt="Фон">
+            <img src="IMG_3815.avif" alt="Фон" loading="eager">
             <div class="hero-bg-overlay"></div>
         </div>
 
         <div class="hero-hidden-content">
             <h2>Мы скоро станем родителями<br>во&nbsp;второй&nbsp;раз!</h2>
             <p>И хотим пригласить вас разделить с нами&nbsp; трогательный момент&nbsp;— узнать пол нашего малыша.</p>
-            <img src="elephant.png" alt="Слонёнок" class="reveal-img">
+            <img src="elephant.png" alt="Слонёнок" class="reveal-img" loading="lazy">
         </div>
 
         <div class="curtain-half curtain-left">
-            <img src="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.png" alt="Шатер">
+            <img src="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.png" alt="Шатер" loading="eager">
         </div>
         <div class="curtain-half curtain-right">
-            <img src="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.png" alt="Шатер">
+            <img src="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.png" alt="Шатер" loading="eager">
         </div>
 
         <div class="scroll-hint">
@@ -636,9 +643,9 @@
 
     <!-- CALENDAR -->
     <section class="calendar-section">
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-top">
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-left">
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-right">
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-top" loading="lazy">
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-left" loading="lazy">
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-right" loading="lazy">
 
         <h2 class="section-title">Ждём вас</h2>
         <p class="section-subtitle">20 сентября 2026 года</p>
@@ -716,7 +723,7 @@
             </div>
         </div>
 
-        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-bottom">
+        <img src="garland.png" alt="гирлянда" class="calendar-garland garland-bottom" loading="lazy">
     </section>
 
     <!-- TIMELINE (17:00 / 19:00 / 20:00) -->
@@ -799,7 +806,7 @@
             <p class="section-subtitle">Кто у нас родится?</p>
 
             <div class="single-photo-wrap">
-                <img src="IMG_3843.avif" alt="Семья">
+                <img src="IMG_3843.avif" alt="Семья" loading="lazy">
             </div>
 
             <div class="vote-options">
@@ -881,9 +888,9 @@
         </div>
     </section>
 
-    <!-- ФИНАЛЬНЫЙ БЛОК: ВТОРАЯ ФОТОГРАФИЯ С НАДПИСЬЮ -->
+    <!-- ФИНАЛЬНЫЙ БЛОК -->
     <footer class="final-photo-footer">
-        <img src="IMG_3837.avif" alt="Ожидание малыша">
+        <img src="IMG_3837.avif" alt="Ожидание малыша" loading="lazy">
         <div class="final-photo-overlay"></div>
         <div class="final-photo-text">
             Ждем вас с нетерпением!
@@ -982,7 +989,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-// === GOOGLE APPS SCRIPT API ===
+    // === GOOGLE APPS SCRIPT API ===
     const API_URL = 'https://script.google.com/macros/s/AKfycbwirBllZ-FzJ6h0R0IuLC9vMiJAW6HByFIzaJq4UvHPr0zx1fWEBIW4CdeJkItJJIP26A/exec';
 
     let isVoting = false;
@@ -991,10 +998,16 @@
     // --- 1. ГОЛОСОВАНИЕ И СТАТИСТИКА ---
 
     async function fetchStats() {
-        try {
-            const res = await fetch(`${API_URL}?t=${Date.now()}`);
-            let data = await res.json();
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000); // 4 сек таймаут
 
+        try {
+            const res = await fetch(`${API_URL}?t=${Date.now()}`, {
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
+            let data = await res.json();
             if (Array.isArray(data)) {
                 data = data[0] || {};
             }
@@ -1004,7 +1017,7 @@
 
             updateStatsUI(boyCount, girlCount);
         } catch (e) {
-            updateStatsUI(0, 0);
+            console.log('Статистика загрузится в фоне');
         }
     }
 
@@ -1038,7 +1051,6 @@
 
         isVoting = true;
 
-        // Мгновенно подсвечиваем кнопку и сохраняем локально
         localStorage.setItem('gender_party_user_vote', gender);
         highlightButton(gender);
 
@@ -1109,7 +1121,6 @@
 
         errorEl.style.display = 'none';
 
-        // Блокируем повторный клик
         isSubmitting = true;
         if (submitLabel) submitLabel.innerText = 'Отправляем...';
         if (submitCloud) {
@@ -1142,20 +1153,17 @@
         });
     }
 
-    // --- 3. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
+    // --- 3. ИНИЦИАЛИЗАЦИЯ ПОСЛЕ ПОЛНОЙ ОТРИСОВКИ СТРАНИЦЫ ---
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Запрашиваем статистику
-        fetchStats();
-        setTimeout(fetchStats, 1500);
+    window.addEventListener('load', () => {
+        // Мягкий запуск запроса статистики в фоновом потоке
+        setTimeout(fetchStats, 100);
 
-        // Проверяем, голосовал ли уже этот браузер
         const savedVote = localStorage.getItem('gender_party_user_vote');
         if (savedVote) {
             highlightButton(savedVote);
         }
 
-        // Показ / скрытие блока про детей
         const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
         attendanceRadios.forEach(radio => {
             radio.addEventListener('change', () => {
@@ -1169,7 +1177,6 @@
             });
         });
 
-        // Навешиваем слушатель на форму RSVP
         const rsvpForm = document.getElementById('genderPartyForm');
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', handleFormSubmit);
