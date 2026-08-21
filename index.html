@@ -45,6 +45,67 @@
             background-attachment: fixed;
         }
 
+        /* ===== PRELOADER SCREEN ===== */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-page);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-box {
+            text-align: center;
+            max-width: 280px;
+            width: 85%;
+        }
+
+        .preloader-title {
+            font-family: var(--font-accent);
+            font-size: 2.2rem;
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .preloader-track {
+            width: 100%;
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preloader-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-orange);
+            border-radius: 4px;
+            transition: width 0.2s ease;
+        }
+
+        .preloader-percent {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
         .wrapper-card {
             max-width: 1000px;
             margin: 0 auto;
@@ -609,6 +670,17 @@
 </head>
 <body>
 
+<!-- ЭКРАН ПРЕДЗАГРУЗКИ -->
+<div id="preloader">
+    <div class="preloader-box">
+        <div class="preloader-title">Маленькая тайна...</div>
+        <div class="preloader-track">
+            <div class="preloader-progress" id="preloaderFill"></div>
+        </div>
+        <div class="preloader-percent" id="preloaderVal">0%</div>
+    </div>
+</div>
+
 <!-- ЕДИНЫЙ ПЕРВЫЙ БЛОК -->
 <div class="hero-pin-wrapper" id="heroPin">
     <div class="hero-sticky-container">
@@ -620,7 +692,7 @@
         <div class="hero-hidden-content">
             <h2>Мы скоро станем родителями<br>во&nbsp;второй&nbsp;раз!</h2>
             <p>И хотим пригласить вас разделить с нами&nbsp; трогательный момент&nbsp;— узнать пол нашего малыша.</p>
-            <img src="elephant.png" alt="Слонёнок" class="reveal-img" loading="lazy">
+            <img src="elephant.png" alt="Слонёнок" class="reveal-img" loading="eager">
         </div>
 
         <div class="curtain-half curtain-left">
@@ -900,6 +972,59 @@
 </div>
 
 <script>
+    // === PRELOAD ALL KEY IMAGES ===
+    const IMAGES_TO_PRELOAD = [
+        'IMG_3815.avif',
+        '6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.png',
+        'elephant.png',
+        'garland.png',
+        'IMG_3843.avif',
+        'IMG_3837.avif',
+        'cloud-btn.png'
+    ];
+
+    let loadedAssets = 0;
+    const preloaderEl = document.getElementById('preloader');
+    const preloaderFill = document.getElementById('preloaderFill');
+    const preloaderVal = document.getElementById('preloaderVal');
+
+    function updatePreloaderProgress(percent) {
+        if (preloaderFill) preloaderFill.style.width = percent + '%';
+        if (preloaderVal) preloaderVal.innerText = percent + '%';
+    }
+
+    function hidePreloader() {
+        if (preloaderEl && !preloaderEl.classList.contains('hidden')) {
+            updatePreloaderProgress(100);
+            setTimeout(() => {
+                preloaderEl.classList.add('hidden');
+                if (typeof updateHeroCurtains === 'function') {
+                    updateHeroCurtains();
+                }
+            }, 300);
+        }
+    }
+
+    if (IMAGES_TO_PRELOAD.length > 0) {
+        IMAGES_TO_PRELOAD.forEach(src => {
+            const img = new Image();
+            img.src = src;
+            img.onload = img.onerror = () => {
+                loadedAssets++;
+                const progress = Math.round((loadedAssets / IMAGES_TO_PRELOAD.length) * 100);
+                updatePreloaderProgress(progress);
+                if (loadedAssets >= IMAGES_TO_PRELOAD.length) {
+                    hidePreloader();
+                }
+            };
+        });
+    } else {
+        hidePreloader();
+    }
+
+    // Страховочный таймер (на случай медленного 3G)
+    setTimeout(hidePreloader, 4000);
+
     // === АНИМАЦИЯ РАЗДВИЖЕНИЯ ШАТРА И ПОЯВЛЕНИЯ ФОТО 3815 ===
     const heroPin = document.getElementById('heroPin');
     const curtainLeft = document.querySelector('.curtain-left');
@@ -999,7 +1124,7 @@
 
     async function fetchStats() {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 4000); // 4 сек таймаут
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
 
         try {
             const res = await fetch(`${API_URL}?t=${Date.now()}`, {
@@ -1156,7 +1281,6 @@
     // --- 3. ИНИЦИАЛИЗАЦИЯ ПОСЛЕ ПОЛНОЙ ОТРИСОВКИ СТРАНИЦЫ ---
 
     window.addEventListener('load', () => {
-        // Мягкий запуск запроса статистики в фоновом потоке
         setTimeout(fetchStats, 100);
 
         const savedVote = localStorage.getItem('gender_party_user_vote');
