@@ -1180,16 +1180,20 @@
         highlightButton(gender);
 
         try {
-            await fetch(API_URL, {
+            const res = await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify({ gender: gender })
             });
+
+            const data = await res.json();
+            if (data && typeof data.boy !== 'undefined') {
+                updateStatsUI(Number(data.boy), Number(data.girl));
+            }
         } catch (e) {
-            console.log('Голос отправлен');
+            setTimeout(fetchStats, 1000);
         } finally {
             isVoting = false;
-            setTimeout(fetchStats, 1000);
         }
     }
 
