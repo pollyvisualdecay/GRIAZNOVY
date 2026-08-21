@@ -1,0 +1,266 @@
+{
+  "name": "Gender Party - Votes (Google Sheets)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gender-party-vote",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh-p-00d6435b",
+      "name": "Webhook POST /vote",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        110
+      ],
+      "webhookId": "vote-post-gp-2gis"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "gender-party-vote",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "wh-g-06b561f8",
+      "name": "Webhook GET /vote",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -460,
+        330
+      ],
+      "webhookId": "vote-get-gp-2gis"
+    },
+    {
+      "parameters": {
+        "jsCode": "const src = $input.first().json;\nconst body = src.body || src;\nconst gender = (body.gender || '').toString().toLowerCase().trim();\nif (gender !== 'boy' && gender !== 'girl') {\n  throw new Error('Invalid gender. Expected \"boy\" or \"girl\".');\n}\nreturn [{ json: { gender, ts: new Date().toISOString() } }];\n"
+      },
+      "id": "extract-d3dc80fd",
+      "name": "Extract gender",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        110
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1rZeYuNxLnNexFQ-foL-WLU89Enjg-hRZZbwc6JcGlec"
+        },
+        "sheetName": "Votes",
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "timestamp": "={{ $json.ts }}",
+            "gender": "={{ $json.gender }}"
+          }
+        }
+      },
+      "id": "append-1c307ccd",
+      "name": "Append vote",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -20,
+        110
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "1rZeYuNxLnNexFQ-foL-WLU89Enjg-hRZZbwc6JcGlec"
+        },
+        "sheetName": "Votes",
+        "options": {
+          "returnAll": true,
+          "range": "A2:B"
+        }
+      },
+      "id": "read-6830663a",
+      "name": "Read all votes",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        200,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nlet boy = 0, girl = 0;\nitems.forEach(it => {\n  const g = (it.json.gender || '').toString().toLowerCase().trim();\n  if (g === 'boy') boy++;\n  else if (g === 'girl') girl++;\n});\nreturn [{ json: { boy, girl } }];\n"
+      },
+      "id": "count-897a2a12",
+      "name": "Count boy / girl",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "GET, POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "resp-stats-e4be2b15",
+      "name": "Respond (stats)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'ok', boy: $('Count boy / girl').first().json.boy, girl: $('Count boy / girl').first().json.girl }) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              },
+              {
+                "name": "Access-Control-Allow-Methods",
+                "value": "GET, POST, OPTIONS"
+              },
+              {
+                "name": "Access-Control-Allow-Headers",
+                "value": "Content-Type"
+              }
+            ]
+          }
+        }
+      },
+      "id": "resp-ok-6415d806",
+      "name": "Respond (vote ok)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        640,
+        110
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook POST /vote": {
+      "main": [
+        [
+          {
+            "node": "Extract gender",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook GET /vote": {
+      "main": [
+        [
+          {
+            "node": "Read all votes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract gender": {
+      "main": [
+        [
+          {
+            "node": "Append vote",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append vote": {
+      "main": [
+        [
+          {
+            "node": "Read all votes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read all votes": {
+      "main": [
+        [
+          {
+            "node": "Count boy / girl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count boy / girl": {
+      "main": [
+        [
+          {
+            "node": "Respond (stats)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond (vote ok)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": [
+    "gender-party",
+    "n8n"
+  ]
+}
