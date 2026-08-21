@@ -982,16 +982,17 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-// === LIVE VOTE STATS via n8n ===
-    const WEBHOOK_VOTE_URL = 'https://n8n.2gis.io/webhook/gender-party-vote';
+// === GOOGLE APPS SCRIPT API ===
+    const API_URL = 'https://script.google.com/macros/s/AKfycbwirBllZ-FzJ6h0R0IuLC9vMiJAW6HByFIzaJq4UvHPr0zx1fWEBIW4CdeJkItJJIP26A/exec';
 
     let isVoting = false;
+    let isSubmitting = false;
+
+    // --- 1. ГОЛОСОВАНИЕ И СТАТИСТИКА ---
 
     async function fetchStats() {
         try {
-            const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats&_t=${Date.now()}`, {
-                cache: 'no-store'
-            });
+            const res = await fetch(`${API_URL}?t=${Date.now()}`);
             let data = await res.json();
 
             if (Array.isArray(data)) {
@@ -1037,21 +1038,21 @@
 
         isVoting = true;
 
-        // Мгновенно выделяем кнопку и сохраняем выбор локально
+        // Мгновенно подсвечиваем кнопку и сохраняем локально
         localStorage.setItem('gender_party_user_vote', gender);
         highlightButton(gender);
 
-        // Отправляем голос в фоновом режиме
         try {
-            await fetch(WEBHOOK_VOTE_URL, {
+            await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ gender })
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ gender: gender })
             });
         } catch (e) {
-            console.log('Голос сохранен');
+            console.log('Голос отправлен');
         } finally {
-            setTimeout(fetchStats, 500);
+            isVoting = false;
+            setTimeout(fetchStats, 1000);
         }
     }
 
@@ -1078,37 +1079,12 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchStats();
-        setTimeout(fetchStats, 1000);
-
-        const savedVote = localStorage.getItem('gender_party_user_vote');
-        if (savedVote) {
-            highlightButton(savedVote);
-        }
-
-        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
-        attendanceRadios.forEach(radio => {
-            radio.addEventListener('change', () => {
-                const kidsGroup = document.getElementById('kidsGroup');
-                if (radio.value === 'pair' && radio.checked) {
-                    kidsGroup.style.display = 'block';
-                } else if (radio.value === 'single') {
-                    kidsGroup.style.display = 'none';
-                    document.querySelectorAll('input[name="kids"]').forEach(k => k.checked = false);
-                }
-            });
-        });
-    });
-    // === FORM SUBMIT via n8n C БЛОКИРОВКОЙ ПОВТОРНЫХ КЛИКОВ ===
-    const WEBHOOK_URL = 'https://n8n.2gis.io/webhook/gender-party-rsvp';
-
-    let isSubmitting = false;
+    // --- 2. ОТПРАВКА АНКЕТЫ RSVP ---
 
     function handleFormSubmit(e) {
         e.preventDefault();
-        
-        if (isSubmitting) return; // Защита от параллельных кликов
+
+        if (isSubmitting) return;
 
         const form = document.getElementById('genderPartyForm');
         const errorEl = document.getElementById('formError');
@@ -1133,7 +1109,7 @@
 
         errorEl.style.display = 'none';
 
-        // 1. Мгновенно блокируем кнопку и меняем текст
+        // Блокируем повторный клик
         isSubmitting = true;
         if (submitLabel) submitLabel.innerText = 'Отправляем...';
         if (submitCloud) {
@@ -1148,10 +1124,9 @@
             kids: kidsGroupVisible ? kidsEl.value : null
         };
 
-        // 2. Отправляем в n8n и показываем экран успеха
-        fetch(WEBHOOK_URL, {
+        fetch(API_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(data)
         })
         .then(() => {
@@ -1166,6 +1141,40 @@
             isSubmitting = false;
         });
     }
+
+    // --- 3. ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Запрашиваем статистику
+        fetchStats();
+        setTimeout(fetchStats, 1500);
+
+        // Проверяем, голосовал ли уже этот браузер
+        const savedVote = localStorage.getItem('gender_party_user_vote');
+        if (savedVote) {
+            highlightButton(savedVote);
+        }
+
+        // Показ / скрытие блока про детей
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        attendanceRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                const kidsGroup = document.getElementById('kidsGroup');
+                if (radio.value === 'pair' && radio.checked) {
+                    kidsGroup.style.display = 'block';
+                } else if (radio.value === 'single') {
+                    kidsGroup.style.display = 'none';
+                    document.querySelectorAll('input[name="kids"]').forEach(k => k.checked = false);
+                }
+            });
+        });
+
+        // Навешиваем слушатель на форму RSVP
+        const rsvpForm = document.getElementById('genderPartyForm');
+        if (rsvpForm) {
+            rsvpForm.addEventListener('submit', handleFormSubmit);
+        }
+    });
 </script>
 
 </body>
