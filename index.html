@@ -579,11 +579,6 @@
             transition: transform 0.3s ease;
         }
         .cloud-btn-submit img:hover { transform: scale(1.03); }
-        .submit-label {
-            font-family: var(--font-accent);
-            font-size: 1.4rem; font-style: italic;
-            color: var(--accent-orange); margin-bottom: 5px; text-align: center;
-        }
         .form-success {
             display: none; text-align: center; padding: 28px;
             background: #FFFFFF; border: 1px solid var(--border-color);
@@ -950,8 +945,7 @@
             <div class="form-error" id="formError">Пожалуйста, заполните все поля</div>
 
             <div class="cloud-btn-submit">
-                <div class="submit-label">Отправить</div>
-                <img src="cloud-btn.png" alt="Отправить" onclick="document.getElementById('genderPartyForm').requestSubmit()">
+                <img src="кнопка отправить для формы.png" alt="Отправить" onclick="document.getElementById('genderPartyForm').requestSubmit()">
             </div>
         </form>
 
@@ -980,7 +974,7 @@
         'garland.png',
         'IMG_3843.avif',
         'IMG_3837.avif',
-        'cloud-btn.png'
+        'кнопка отправить для формы.png'
     ];
 
     let loadedAssets = 0;
@@ -1229,7 +1223,6 @@
 
         const form = document.getElementById('genderPartyForm');
         const errorEl = document.getElementById('formError');
-        const submitLabel = document.querySelector('.submit-label');
         const submitCloud = document.querySelector('.cloud-btn-submit img');
 
         const firstName = document.getElementById('firstName').value.trim();
@@ -1251,7 +1244,6 @@
         errorEl.style.display = 'none';
 
         isSubmitting = true;
-        if (submitLabel) submitLabel.innerText = 'Отправляем...';
         if (submitCloud) {
             submitCloud.style.pointerEvents = 'none';
             submitCloud.style.opacity = '0.5';
