@@ -982,16 +982,28 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // === LIVE VOTE STATS via n8n ===
+// === LIVE VOTE STATS via n8n ===
     const WEBHOOK_VOTE_URL = 'https://n8n.2gis.io/webhook/gender-party-vote';
 
     let isVoting = false;
 
     async function fetchStats() {
         try {
-            const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats`);
-            const data = await res.json();
-            updateStatsUI(data.boy || 0, data.girl || 0);
+            // Добавлен _t=${Date.now()} и cache: 'no-store', чтобы браузер не кэшировал данные
+            const res = await fetch(`${WEBHOOK_VOTE_URL}?action=get_stats&_t=${Date.now()}`, {
+                cache: 'no-store'
+            });
+            let data = await res.json();
+
+            // Обработка случая, если n8n вернул массив [{ boy, girl }]
+            if (Array.isArray(data)) {
+                data = data[0] || {};
+            }
+
+            const boyCount = Number(data.boy) || 0;
+            const girlCount = Number(data.girl) || 0;
+
+            updateStatsUI(boyCount, girlCount);
         } catch (e) {
             updateStatsUI(0, 0);
         }
