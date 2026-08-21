@@ -1068,13 +1068,20 @@
         });
     });
 
-    // === FORM SUBMIT via n8n ===
+    // === FORM SUBMIT via n8n C БЛОКИРОВКОЙ ПОВТОРНЫХ КЛИКОВ ===
     const WEBHOOK_URL = 'https://n8n.2gis.io/webhook/gender-party-rsvp';
+
+    let isSubmitting = false;
 
     function handleFormSubmit(e) {
         e.preventDefault();
+        
+        if (isSubmitting) return; // Защита от параллельных кликов
+
         const form = document.getElementById('genderPartyForm');
         const errorEl = document.getElementById('formError');
+        const submitLabel = document.querySelector('.submit-label');
+        const submitCloud = document.querySelector('.cloud-btn-submit img');
 
         const firstName = document.getElementById('firstName').value.trim();
         const lastName = document.getElementById('lastName').value.trim();
@@ -1094,6 +1101,14 @@
 
         errorEl.style.display = 'none';
 
+        // 1. Мгновенно блокируем кнопку и меняем текст
+        isSubmitting = true;
+        if (submitLabel) submitLabel.innerText = 'Отправляем...';
+        if (submitCloud) {
+            submitCloud.style.pointerEvents = 'none';
+            submitCloud.style.opacity = '0.5';
+        }
+
         const data = {
             firstName: firstName,
             lastName: lastName,
@@ -1101,12 +1116,12 @@
             kids: kidsGroupVisible ? kidsEl.value : null
         };
 
+        // 2. Отправляем в n8n и показываем экран успеха
         fetch(WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         })
-        .then(r => r.json())
         .then(() => {
             form.style.display = 'none';
             document.getElementById('formSuccess').style.display = 'block';
@@ -1114,6 +1129,9 @@
         .catch(() => {
             form.style.display = 'none';
             document.getElementById('formSuccess').style.display = 'block';
+        })
+        .finally(() => {
+            isSubmitting = false;
         });
     }
 </script>
