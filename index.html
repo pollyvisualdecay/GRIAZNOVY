@@ -149,9 +149,13 @@
         }
         .curtain-left  { clip-path: inset(0 50% 0 0); }
         .curtain-right { clip-path: inset(0 0 0 50%); }
+        
         .curtain-half img {
-            width: 100%; height: 100%;
-            object-fit: contain; object-position: center bottom; display: block;
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; /* Растягивается на весь экран без черных полей */
+            object-position: center; 
+            display: block;
         }
 
         .scroll-hint {
@@ -575,10 +579,10 @@
         </div>
 
         <div class="curtain-half curtain-left">
-            <img src="hero-couple.webp" alt="Шатер">
+            <img src="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.jpg" alt="Шатер">
         </div>
         <div class="curtain-half curtain-right">
-            <img src="hero-couple.webp" alt="Шатер">
+            <img src="6BFC678C-7122-49B2-8CB0-F1D20EB0ABF2.jpg" alt="Шатер">
         </div>
 
         <div class="scroll-hint">
